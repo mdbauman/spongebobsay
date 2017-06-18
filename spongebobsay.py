@@ -1,32 +1,49 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""That meme is now on your terminal"""
+"""That one meme is now on your terminal
+By Matt Bauman 2017 github.com/mdbauman"""
 
 import sys
 import codecs
 import os
 import random
 import shutil
+import textwrap
 
+#force utf-8 writer in case terminal is a silly encoding
 sys.stdout = codecs.getwriter('utf8')(sys.stdout.buffer)
 
-#TODO don't need apparently - there's a textwrap module!
-def wrap_text(args):
-    terminal_size = shutil.get_terminal_size(fallback=(80, 20))
-    cols = 40 if terminal_size.columns>40 else terminal_size.columns
-
+def derpify_text(words):
     ret = []
-    ret.append('')
-    for word in args:
-        line = ret[-1]
-        newline = (line + ' ' + word).strip()
-        if(len(newline)<=cols):
-            ret[-1]=newline
-        else:
-            ret.append('')
+    for word in words:
+        uc = ''.join(random.choice([c.upper(), c.lower()]) for c in word)
+        ret.append(uc)
     return ret
 
-#TODO make balloon
+def wrap_text(words):
+    terminal_size = shutil.get_terminal_size(fallback=(80, 20))
+    width = 40 if terminal_size.columns>40 else terminal_size.columns
+
+    return textwrap.wrap(' '.join(words),width)
+
+def make_balloon(lines):
+    max_len = max(len(line) for line in lines)
+    first_line = ' '+'_'*(max_len+2)
+    last_line = ' '+'-'*(max_len+2)
+
+    balloon = first_line+'\n'
+    for line in lines:
+        if(len(lines)==1):
+            balloon = balloon+'< '+line+' >\n'
+        elif(line==lines[0]):
+            balloon = balloon+'/ '+line.ljust(max_len,' ')+' \\\n'
+        elif(line==lines[-1]):
+            balloon = balloon+'\\ '+line.ljust(max_len,' ')+' /\n'
+        else:
+            balloon = balloon+'| '+line.ljust(max_len,' ')+' |\n'
+    
+    balloon = balloon + last_line+'\n  \\\n   \\\n    \\\n'
+    return balloon
 
 def get_bob():
     files = []
@@ -40,6 +57,13 @@ def print_bob(fname):
         for line in lines:
             print(line, end='')
 
+def main():
+    words = derpify_text(sys.argv[1:])
+    lines = wrap_text(words)
+    balloon = make_balloon(lines)
+    print(balloon)
+    #print(lines)
+    #print_bob(get_bob())
 
-wrap_text(sys.argv[1:])
-print_bob(get_bob())
+if __name__ == '__main__':
+    main()
