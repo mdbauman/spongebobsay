@@ -69,7 +69,7 @@ def main():
     parser.add_argument('-f', '--file', help="Specify .bob file, ex. 'mocking.bob'", action='store')
     opts, text = parser.parse_known_args()
 
-    #cesi n'est pas une pipe (use pipe if no text)
+    #cesi n'est pas une pipe
     if(len(text)==0):
         for line in sys.stdin:
             text.append(line)
