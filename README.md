@@ -1,7 +1,7 @@
 # spongebobsay
 ### The Spongebob Say-er
 
-![Screenshot](screenshot-min.jpg?raw=true "Screenshot")
+![Screenshot](screenshot-min.png?raw=true "Screenshot")
 
 Inspired by [cowsay](//github.com/tnalpgge/rank-amateur-cowsay/). Let me help you make fun of your mom.
 
