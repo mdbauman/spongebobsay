@@ -81,7 +81,7 @@ def main():
     else:
         lines = wrap_text(text, opts.width)
     if opts.file:
-        bobfile = SCRIPT_DIR+'/bobs/'+opts.file
+        bobfile = opts.file
     else:
         bobfile = random_bob()
 
