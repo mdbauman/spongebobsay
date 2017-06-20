@@ -1,5 +1,4 @@
 # spongebobsay
-### The Spongebob Say-er
 
 ![Screenshot](screenshot-min.png?raw=true "Screenshot")
 
